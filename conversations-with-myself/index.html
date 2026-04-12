@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Conversations With Myself // John Wiley</title>
     <style>
         :root {
@@ -14,7 +15,7 @@
 
         body {
             background-color: var(--midnight-dark);
-            background-image: url('conversations-with-myself.png'); 
+            background-image: url('Conversations with myself.jpg'); 
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -25,113 +26,137 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 40px 20px;
+            padding: 20px;
             box-sizing: border-box;
+            overflow-x: hidden;
         }
 
+        /* Dark overlay for readability */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(180deg, rgba(7,7,7,0.5) 0%, rgba(7,7,7,0.2) 50%, rgba(7,7,7,0.7) 100%);
+            background: linear-gradient(180deg, rgba(7,7,7,0.6) 0%, rgba(7,7,7,0.2) 50%, rgba(7,7,7,0.8) 100%);
             z-index: -1;
         }
 
-        header { margin-bottom: 40px; text-align: center; }
+        header { 
+            margin-top: 20px; 
+            margin-bottom: 30px; 
+            text-align: center; 
+            z-index: 10;
+        }
+        
         header h1 { 
-            font-size: 3.5rem; 
+            font-size: 2.5rem; /* Shrunk for mobile */
             font-weight: 300; 
             font-style: italic; 
             margin: 0; 
             color: var(--star);
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
         }
-        .subtitle { text-transform: uppercase; letter-spacing: 4px; font-size: 0.7rem; opacity: 0.8; margin-bottom: 25px; }
+        
+        .subtitle { 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            font-size: 0.65rem; 
+            opacity: 0.9; 
+            margin-bottom: 20px; 
+        }
 
         .presave-link {
             display: inline-block;
             text-decoration: none;
             color: var(--midnight-dark);
             background: var(--paper);
-            padding: 12px 25px;
+            padding: 14px 30px; /* Larger tap target */
+            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             border-radius: 2px;
             transition: 0.4s ease;
+            font-weight: bold;
         }
 
         .tracklist {
             width: 100%;
-            max-width: 500px;
+            max-width: 450px;
             margin-top: auto; 
-            background: rgba(0, 0, 0, 0.4); 
-            padding: 20px;
-            border-radius: 4px;
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.6); 
+            padding: 15px;
+            border-radius: 8px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px); /* Safari support */
+            margin-bottom: 20px;
         }
 
         .track-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
+            padding: 15px 0; /* Taller rows for fingers */
             border-bottom: 1px solid rgba(232, 218, 178, 0.1);
         }
 
-        .track-name { font-size: 1.2rem; color: var(--star); }
+        .track-name { font-size: 1.1rem; color: var(--star); max-width: 70%; }
 
         .claim-btn {
             background: transparent;
             color: var(--accent);
             border: 1px solid var(--accent);
             font-family: var(--serif);
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            padding: 5px 12px;
+            padding: 8px 16px; /* Bigger button for mobile */
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        .claim-btn:hover { background: var(--accent); color: var(--midnight-dark); }
         .claimed-tag { font-style: italic; font-size: 0.9rem; color: var(--accent); }
 
-        /* --- STORY OVERLAY STYLE --- */
+        /* --- MOBILE STORY OVERLAY --- */
         #story-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.95);
             z-index: 100;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            box-sizing: border-box;
         }
 
         .story-card {
             background: var(--paper);
             color: var(--midnight-dark);
-            padding: 40px;
-            max-width: 400px;
+            padding: 30px;
+            width: 100%;
+            max-width: 350px;
             text-align: center;
-            box-shadow: 0 0 50px rgba(0,0,0,1);
-            position: relative;
-            transform: rotate(-1deg);
+            border-radius: 2px;
         }
 
-        .story-card h3 { font-family: var(--serif); font-style: italic; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 10px; }
-        .story-card p { font-size: 1.1rem; line-height: 1.6; margin: 20px 0; }
+        .story-card p { font-size: 1rem; line-height: 1.5; margin: 15px 0; }
         
         .close-story {
             background: var(--midnight-dark);
             color: var(--paper);
             border: none;
-            padding: 10px 20px;
-            cursor: pointer;
+            padding: 12px 24px;
+            width: 100%;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-top: 10px;
         }
 
-        footer { font-style: italic; opacity: 0.6; font-size: 0.8rem; margin-top: 30px; }
+        footer { font-style: italic; opacity: 0.7; font-size: 0.75rem; margin-bottom: 10px; }
+
+        /* --- DESKTOP ADJUSTMENTS --- */
+        @media (min-width: 768px) {
+            header h1 { font-size: 4rem; }
+            .tracklist { padding: 30px; }
+            .track-name { font-size: 1.25rem; }
+            body { padding: 40px; }
+        }
     </style>
 </head>
 <body>
@@ -139,15 +164,15 @@
     <header>
         <h1>Conversations with Myself</h1>
         <p class="subtitle">An EP by John Wiley</p>
-        <a href="https://distrokid.com/hyperfollow/johnwiley/conversations-with-myself/" target="_blank" class="presave-link">Pre-save</a>
+        <a href="https://distrokid.com/hyperfollow/johnwiley/conversations-with-myself/" target="_blank" class="presave-link">Pre-save EP</a>
     </header>
 
     <div class="tracklist" id="tracklist-root"></div>
 
     <div id="story-overlay">
         <div class="story-card">
-            <h3 id="story-title">Song Title</h3>
-            <p id="story-text">This is what the song is about...</p>
+            <h3 id="story-title" style="margin-top:0; font-style:italic;"></h3>
+            <p id="story-text"></p>
             <button class="close-story" onclick="closeStory()">It is mine now.</button>
         </div>
     </div>
@@ -155,15 +180,14 @@
     <footer>choose the song that echoes your heart.</footer>
 
     <script>
-        // --- ADD YOUR TRACK STORIES HERE ---
         const trackData = {
-            "My letter to you": "A song about how you keep thinking about a certain moment with a special someone, and you write them a letter about it",
-            "The Wait": "That restless feeling of waiting for someone to reply to your letter/message.",
-            "My Little Lover Boy": "A response to your letter from that somoene you were thinking of.",
+            "My letter to you": "An honest opening. A message sent into the void, hoping the person on the other side still remembers the ink.",
+            "The Wait": "That restless feeling of standing still while the world moves on. Written during a quiet midnight in West Virginia.",
+            "My Little Lover Boy": "A nostalgic look at younger versions of ourselves and the simple, messy ways we used to love.",
             "My best friend": "A tribute to the people who hold us together when we feel like we're drifting apart.",
-            "Sunny Day": "A song about sharing a sunny day with someone, and they just seem extra special that day.",
-            "Autumn Echoes": "The unexpected romantic lover who you cannot fall in love with, but cant help yourself",
-            "In the sky": "A song about if someone feels the same way about you, as you do about them."
+            "Sunny Day": "A moment of clarity. A rare afternoon where the shadows felt a little shorter and the air a little warmer.",
+            "Autumn Echoes": "The sound of seasons changing. Leaf-fall, cold air, and the realization that some things are meant to fade.",
+            "In the sky": "An ending and a beginning. Looking up and realizing how small our conversations are in the grand design."
         };
 
         const tracks = Object.keys(trackData);
@@ -173,15 +197,13 @@
             const claimedTrack = localStorage.getItem('claimedTrack');
             container.innerHTML = '';
 
-            tracks.forEach((name, index) => {
+            tracks.forEach((name) => {
                 const isClaimed = claimedTrack === name;
                 const item = document.createElement('div');
                 item.className = `track-item ${isClaimed ? 'claimed' : ''}`;
                 
                 item.innerHTML = `
-                    <div class="track-info">
-                        <span class="track-name">${name}</span>
-                    </div>
+                    <span class="track-name">${name}</span>
                     ${isClaimed 
                         ? `<span class="claimed-tag">Yours.</span>` 
                         : `<button class="claim-btn" onclick="showStory('${name}')">Claim</button>`}
@@ -194,7 +216,6 @@
             document.getElementById('story-title').innerText = name;
             document.getElementById('story-text').innerText = trackData[name];
             document.getElementById('story-overlay').style.display = 'flex';
-            // Save to storage immediately
             localStorage.setItem('claimedTrack', name);
         }
 
