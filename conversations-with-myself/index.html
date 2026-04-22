@@ -7,14 +7,31 @@
     <style>
         :root {
             --mint-green: #aaf0d1;
-            --off-white: #f9f9f9;
-            --dark-gray: #333;
-            --accent-black: #1a1a1a;
+            --off-white: #f4f4f4;
+            --dark-gray: #222;
+            --accent-black: #121212;
+            --glass: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Animated Grain/Noise Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Noisy_Texture.png');
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9999;
         }
 
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--off-white);
+            /* Multi-layered background: Gradient + Soft Mint Blur */
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(170, 240, 209, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(170, 240, 209, 0.15) 0%, transparent 40%),
+                var(--off-white);
             color: var(--dark-gray);
             margin: 0;
             padding: 0;
@@ -24,39 +41,53 @@
 
         /* Header Section */
         header {
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
         .pill-heading {
             background-color: var(--mint-green);
             color: black;
             display: inline-block;
-            padding: 15px 60px;
-            border-radius: 50px;
-            font-size: 2.5rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            padding: 15px 70px;
+            border-radius: 100px;
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: -1px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .pill-heading:hover {
+            transform: scale(1.02);
         }
 
         .sub-headline {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 5px;
+            font-weight: 300;
             margin-bottom: 40px;
+            color: #666;
+        }
+
+        /* Content Blocks with Glassmorphism */
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            max-width: 800px;
+            margin: 0 auto 60px;
+            padding: 30px;
         }
 
         /* Video Section */
-        .video-container {
-            max-width: 900px;
-            margin: 0 auto 50px;
-            padding: 0 20px;
-        }
-
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 12px;
@@ -65,56 +96,47 @@
 
         .video-wrapper iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             border: none;
         }
 
         /* Linktree Embed Section */
-        .links-section {
-            background-color: #fff;
-            padding: 60px 20px;
-        }
-
         .links-container {
-            max-width: 600px;
+            max-width: 550px;
             margin: 0 auto;
-            border: 1px solid #eee;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         /* Contact Section */
         .contact-section {
-            padding: 80px 20px;
+            padding: 100px 20px;
             background-color: var(--accent-black);
             color: white;
-        }
-
-        .contact-section h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+            margin-top: 40px;
         }
 
         .email-link {
             color: var(--mint-green);
             text-decoration: none;
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
             font-weight: bold;
-            transition: opacity 0.3s;
+            display: block;
+            margin-top: 20px;
+            transition: letter-spacing 0.3s ease;
         }
 
         .email-link:hover {
-            opacity: 0.8;
+            letter-spacing: 1px;
         }
 
         footer {
+            background: var(--accent-black);
             padding: 40px;
-            font-size: 0.9rem;
-            opacity: 0.6;
+            font-size: 0.8rem;
+            color: #555;
         }
     </style>
 </head>
@@ -122,34 +144,33 @@
 
     <header>
         <div class="pill-heading">John Wiley</div>
-        <div class="sub-headline">Conversations With Myself — Out Now</div>
+        <div class="sub-headline">Conversations With Myself</div>
     </header>
 
-    <section class="video-container">
+    <div class="glass-panel">
         <div class="video-wrapper">
             <iframe 
                 src="https://www.youtube.com/embed/NIfsY1h7xAg" 
                 title="Conversations With Myself Visualizer" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen>
             </iframe>
         </div>
-        <p style="margin-top: 15px;">Official Visualizer</p>
-    </section>
+        <p style="margin-top: 20px; font-style: italic; opacity: 0.7;">Official Visualizer</p>
+    </div>
 
-    <section class="links-section">
-        <h3>Stream & Purchase</h3>
+    <div class="glass-panel">
+        <h3 style="margin-bottom: 25px; letter-spacing: 2px;">LISTEN NOW</h3>
         <div class="links-container">
             <iframe src="https://linktr.ee/johnwileymusic" 
-                    style="width: 100%; height: 600px; border: none;" 
+                    style="width: 100%; height: 550px; border: none;" 
                     title="John Wiley Music Linktree">
             </iframe>
         </div>
-    </section>
+    </div>
 
     <section class="contact-section">
-        <h2>Get in Touch</h2>
-        <p>For bookings or inquiries:</p>
+        <h2>CONTACT</h2>
+        <p>For bookings, lessons, or inquiries:</p>
         <a href="mailto:johnnymusic3500@gmail.com" class="email-link">johnnymusic3500@gmail.com</a>
     </section>
 
